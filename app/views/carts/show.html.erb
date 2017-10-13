@@ -1,9 +1,18 @@
 <section class="cart-show">
 
+  <head>
+      <%if current_user%>
+  <%@email = current_user.email%>
+  <%else%>
+  <%@email = "default@gmail.com"%>
+  <%end%>
+  </head>
+
   <header class="page-header">
-    <h1>My Cart</h1>
+    <h1>My Cart for <%=@email%></h1>
   </header>
 
+  <%if cart.length > 0%>
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -41,13 +50,18 @@
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-amount="<%= @cart_total * 100 %>"
           data-name="Jungle"
-          data-description=<%=%"#{current_user.name} Jungle Order"%>
+          data-description=<%="Jungle Order"%>
           data-locale="auto"
-          data-email=<%=current_user.email%>
+          data-email=<%=@email%>
           data-currency="cad">
         </script>
       <% end %>
     </div>
   </div>
+  <%else%>
+  <div>
+  <h1>Your Cart is currently empty!</h1>
+  <div>
+  <%end%>
 
 </section>

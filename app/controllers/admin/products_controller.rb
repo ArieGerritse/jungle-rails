@@ -1,4 +1,5 @@
 class Admin::ProductsController < ApplicationController
+  before_action :require_authentication
 
   def index
     @products = Product.order(id: :desc).all
@@ -13,7 +14,7 @@ class Admin::ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to [:admin, :products], notice: 'Product created!'
+      redirect_to %i[admin products], notice: 'Product created!'
     else
       render :new
     end
@@ -22,7 +23,13 @@ class Admin::ProductsController < ApplicationController
   def destroy
     @product = Product.find params[:id]
     @product.destroy
-    redirect_to [:admin, :products], notice: 'Product deleted!'
+    redirect_to %i[admin products], notice: 'Product deleted!'
+  end
+
+  def require_authentication
+    authenticate_or_request_with_http_basic do |u, p|
+      true if u == ENV['ADMIN_USERNAME'] && p == ENV['ADMIN_PASSWORD']
+    end
   end
 
   private
@@ -37,5 +44,4 @@ class Admin::ProductsController < ApplicationController
       :price
     )
   end
-
 end

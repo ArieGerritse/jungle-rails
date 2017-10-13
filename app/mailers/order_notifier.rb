@@ -3,6 +3,7 @@ class OrderNotifier < ApplicationMailer
   
    def order_email(order)
      @orders = order
+     @url = 
      mail(to: @orders.email, subject: "Jungle Order ##{@orders.email}")
    end
 end
