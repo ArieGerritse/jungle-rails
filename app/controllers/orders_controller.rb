@@ -53,6 +53,7 @@ class OrdersController < ApplicationController
       end
     end
     order.save!
+    OrderNotifier.order_email(order).deliver
     order
   end
 
