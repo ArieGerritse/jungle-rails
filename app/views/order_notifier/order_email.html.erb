@@ -13,8 +13,8 @@
       </thead>
       <tbody>
         <% @order_total = 0 %>
-        <% @orders.line_items.each do |product_id| %>
-          <%= render 'item', product_id: product_id.product, quantity: product_id.quantity, total_price: product_id.total_price %>
+        <% @orders.line_items.each do |product| %>
+          <%= render 'item', product_id: product.product, quantity: product.quantity, total_price: product.total_price %>
         <% end %>
       </tbody>
       <tfoot>

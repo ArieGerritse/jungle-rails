@@ -4,7 +4,7 @@ class CreateRatings < ActiveRecord::Migration
       t.references :product, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
       t.string :description
-      t.string :rating
+      t.integer :rating
 
       t.timestamps null: false
     end

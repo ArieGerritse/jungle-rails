@@ -21,9 +21,22 @@ end
 
 # Let's do this ...
 
+  User.destroy_all
+
+  User.create!({
+    name: 'Arie', 
+    email: 'email@email.com', 
+    password_digest: BCrypt::Password.create('1234')
+  })
+
+Rating.destroy_all
+  
+
+Rating.create!({rating: 5, description: 'stuffff'})
+
 ## CATEGORIES
 
-puts "Finding or Creating Categories ..."
+# puts "Finding or Creating Categories ..."
 
 cat1 = Category.find_or_create_by! name: 'Apparel'
 cat2 = Category.find_or_create_by! name: 'Electronics'
