@@ -29,11 +29,6 @@ end
     password_digest: BCrypt::Password.create('1234')
   })
 
-Rating.destroy_all
-  
-
-Rating.create!({rating: 5, description: 'stuffff'})
-
 ## CATEGORIES
 
 # puts "Finding or Creating Categories ..."
@@ -144,6 +139,11 @@ cat3.products.create!({
   quantity: 23,
   price: 2_483.75
 })
+
+Rating.destroy_all
+
+
+Rating.create!({user_id: 1, product_id: 1, rating: 5, description: 'stuffff'})
 
 
 puts "DONE!"

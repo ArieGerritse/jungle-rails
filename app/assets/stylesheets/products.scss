@@ -39,6 +39,16 @@ main section.categories-show {
         transition: all 0.3s;
       }
 
+      .rating {
+        position: absolute;
+        bottom: 65px;
+
+        img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+
       aside.price {
         position: absolute;
         top: 0;

@@ -24,6 +24,28 @@
           <dd><%= @product.price %></dd>
         </dl>
 
+      <%if current_user && @product.rating.find_by(product_id: params[:id], user_id: 1).present? == false%>
+
+      <%= form_tag "/products/#{params[:id]}/rating" do %>
+
+      Rating: <%= select_tag "ratings[:rating]", options_for_select(1..5, 3)%>
+       Description: <%= text_field_tag "ratings[:description]" %>
+       <%= submit_tag "Submit" %>
+
+      <% end %>
+      <%else%>
+                <%@average_rating = Array.new%>
+      <div><% @product.rating.each do |f|%>
+      <%@average_rating.push(f.rating)%>
+      <%end%></div>
+      <div class='rating'>
+      <%if @average_rating.sum.fdiv(@average_rating.size).to_f.nan?%>
+      <%="Not Yet Rated"%>
+      <%else%>
+      <%="Rating: #{@average_rating.sum.fdiv(@average_rating.size)}"%><%= image_tag "smiling-gold-star.png" %>
+      <%end%>
+      <% end %>
+
       </div>
     </div>
 

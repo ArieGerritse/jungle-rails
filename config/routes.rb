@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: 'products#index'
 
-  resources :products, only: [:index, :show]
+  resources :products, only: [:index, :show, :create]
   resources :categories, only: [:show]
 
   resource :cart, only: [:show] do
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:new, :create, :index]
   end
 
-
+  post '/products/:id/rating' => 'products#create'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'

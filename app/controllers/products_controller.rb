@@ -7,12 +7,25 @@ class ProductsController < ApplicationController
     @product = Product.find params[:id]
   end
 
-  def add_rating(rating_change)
+  def create
     product = Product.find params[:id]
+    new_rating = params[:ratings]
     product.rating.new(
-      user: rating_change.id,
-      rating: rating_change.rating,
-      descrption: rating_change.review
+      rating: new_rating[":rating"].to_i,
+      description: new_rating[":description"],
+      user_id: session[:user_id]
     )
+
+    puts product
+
+    product.save!
+
+    redirect_to :back
+  end
+
+  private
+
+  def rating_change
+    @params = params.require(:ratings).permit(:rating, :description)
   end
 end

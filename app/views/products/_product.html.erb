@@ -10,7 +10,17 @@
     <br>
     <%# <%= product.rating %>
           <%score = Product.find_by(id: product.id)%>
-      <div><%= score.rating.each do |f|%><%end%></div>
+          <%@average_rating = Array.new%>
+      <div><% score.rating.each do |f|%>
+      <%@average_rating.push(f.rating)%>
+      <%end%></div>
+      <div class='rating'>
+      <%if @average_rating.sum.fdiv(@average_rating.size).to_f.nan?%>
+      <%="Not Yet Rated"%>
+      <%else%>
+      <%="Rating: #{@average_rating.sum.fdiv(@average_rating.size)}"%><%= image_tag "smiling-gold-star.png" %>
+      <%end%>
+      </div>
   </p>
   <footer class="actions">
     <%= link_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary', method: :put do %>
